@@ -28,6 +28,7 @@ export default class Home extends Component {
                     onChange={this.updateEditorState.bind(this)}
                     handleKeyCommand={this.handleKeyCommand.bind(this)}
                     />
+                <button className='save'></button>
             </div>
         )
     }
