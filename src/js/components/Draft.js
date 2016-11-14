@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Editor, EditorState, RichUtils } from 'draft-js'
+import '../../css/Draft.css'
 
 export default class Home extends Component {
     constructor() {
@@ -22,10 +23,12 @@ export default class Home extends Component {
 
     render() {
         return (
-            <Editor editorState={this.state.editorState}
+            <div className='editor-container'>
+                <Editor editorState={this.state.editorState}
                     onChange={this.updateEditorState.bind(this)}
                     handleKeyCommand={this.handleKeyCommand.bind(this)}
-            />
+                    />
+            </div>
         )
     }
 }
