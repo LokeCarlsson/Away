@@ -1,9 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import Layout from './js/pages/Layout'
-import './index.css';
+import './index.css'
 
 ReactDOM.render(
-  <Layout />,
-  document.getElementById('root')
-);
+    <Router history={hashHistory}>
+        <Route path='/' component={Layout}>
+        </Route>
+    </Router>,
+    document.getElementById('root')
+)
