@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Editor, EditorState, RichUtils } from 'draft-js'
 import '../../css/Draft.css'
 
-export default class Home extends Component {
-    constructor() {
-        super()
+export default class Draft extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
             editorState: EditorState.createEmpty()
         }
@@ -21,14 +21,24 @@ export default class Home extends Component {
         }
     }
 
+    save() {
+        this.props.save(this.getEditor(true))
+    }
+
+    getEditor(readOnly = false) {
+        return <Editor readOnly={readOnly}
+                       key={this.props.index}
+                       editorState={this.state.editorState}
+                       onChange={this.updateEditorState.bind(this)}
+                       handleKeyCommand={this.handleKeyCommand.bind(this)}
+        />
+    }
+
     render() {
         return (
             <div className='editor-container'>
-                <Editor editorState={this.state.editorState}
-                    onChange={this.updateEditorState.bind(this)}
-                    handleKeyCommand={this.handleKeyCommand.bind(this)}
-                    />
-                <button className='save'></button>
+                {this.getEditor()}
+                <button className='save' onClick={this.save.bind(this)}>SAVE</button>
             </div>
         )
     }

@@ -11,24 +11,28 @@ export default class Home extends Component {
     }
 
     addDraftToCollection(newDraft) {
-        const draftIndex = this.drafts.length
         this.drafts.push(newDraft)
+        this.toggleCreate()
     }
 
-    setCreate() {
+    toggleCreate() {
         let toggle = this.state.createNew ? false : true
         this.setState({createNew: toggle})
     }
 
     getDraftTemplate() {
-        return this.state.createNew ? <Draft /> : null
+        const draftIndex = this.drafts.length
+        return this.state.createNew
+            ? <Draft index={draftIndex}
+                     save={this.addDraftToCollection.bind(this)}
+            />
+            : null
     }
-
     render() {
         return (
             <div>
                 <h1>Welcome</h1>
-                <button onClick={this.setCreate.bind(this)}>New</button>
+                <button onClick={this.toggleCreate.bind(this)}>NEW</button>
                 {this.getDraftTemplate()}
                 {this.drafts}
             </div>
