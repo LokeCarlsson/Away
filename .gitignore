@@ -1,11 +1,15 @@
 # dependencies
 client/node_modules
+server/node_modules
 
 # testing
 client/coverage
 
 # production
 client/build
+
+# secret
+server/config/secret/*
 
 # misc
 .DS_Store
