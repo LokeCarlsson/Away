@@ -6,8 +6,9 @@ export default class Draft extends Component {
     constructor(props) {
         super(props)
         let body;
+        console.log(this.props.body);
         if (this.props.body !== "") {
-            const content = convertFromRaw(this.props.body)
+            const content = convertFromRaw(JSON.parse(this.props.body))
             body = EditorState.createWithContent(content)
         } else {
             body = EditorState.createEmpty()

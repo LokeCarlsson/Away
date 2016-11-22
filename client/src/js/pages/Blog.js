@@ -8,7 +8,7 @@ export default class Home extends Component {
             blogPostArray: [],
             newPost: false
         }
-        this.generatePosts()
+        this.generateExistingPosts()
     }
 
     deleteComponent(key) {
@@ -19,19 +19,42 @@ export default class Home extends Component {
         })
     }
 
-    generatePosts() {
-        for (let i = 0; i < 3; i++) {
-            this.state.blogPostArray.push(<Post delete={this.deleteComponent.bind(this)} id={this.state.blogPostArray.length} key={this.state.blogPostArray.length}/>)
-        }
+    generateExistingPosts() {
+        fetch('http://localhost:3001/', {
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(blogPosts => blogPosts.json())
+        .then(blogObjects => {
+            const blogArray = []
+            for (let i = 0; i < blogObjects.length; i++) {
+                blogArray.push(this.createNewPost(blogObjects[i]))
+            }
+            return blogArray
+        })
+        .then((posts) => {
+            this.setState({
+                blogPostArray: [
+                    ...this.state.blogPostArray,
+                    posts
+                ]
+            })
+        })
+    }
+
+    createNewPost(postObject) {
+        const keyValue = this.state.blogPostArray.length === 0 ?
+            postObject._id : this.state.blogPostArray.length
+
+        return <Post title={postObject.title}
+                     body={postObject.body}
+                     key={keyValue}
+                     delete={this.deleteComponent.bind(this)}
+                     id={keyValue}
+                />
     }
 
     addNewPostToArray(newPost) {
-        const post = <Post title={newPost.title}
-                           body={newPost.body}
-                           key={this.state.blogPostArray.length}
-                           delete={this.deleteComponent.bind(this)}
-                           id={this.state.blogPostArray.length}
-                    />
+        const post = this.createNewPost(newPost)
 
         this.setState({
             blogPostArray: [

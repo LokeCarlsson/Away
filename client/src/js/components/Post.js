@@ -16,18 +16,18 @@ export default class Post extends Component {
 
     savePost(e) {
         const postObject = {
+            author: 'logged in user',
             title: this.state.title,
             body: this.state.body
         }
 
-        this.prepareForAdding(e)
-            .then(e => this.props.store(postObject))
-    }
+        this.setState({isNew: false})
+        this.props.store(postObject)
 
-    prepareForAdding(e) {
-        return new Promise((resolve, reject) => {
-            this.setState({isNew: false})
-            resolve()
+        fetch('http://localhost:3001/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postObject)
         })
     }
 
