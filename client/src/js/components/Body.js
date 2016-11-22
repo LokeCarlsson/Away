@@ -5,17 +5,17 @@ import '../../css/Draft.css'
 export default class Draft extends Component {
     constructor(props) {
         super(props)
-        let body;
-        console.log(this.props.body);
+        this.state = {
+            editorState: this.createExistingOrEmptyBody()
+        }
+    }
+
+    createExistingOrEmptyBody() {
         if (this.props.body !== "") {
             const content = convertFromRaw(JSON.parse(this.props.body))
-            body = EditorState.createWithContent(content)
+            return EditorState.createWithContent(content)
         } else {
-            body = EditorState.createEmpty()
-        }
-
-        this.state = {
-            editorState: body
+            return EditorState.createEmpty()
         }
     }
 

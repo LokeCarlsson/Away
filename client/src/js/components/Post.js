@@ -18,7 +18,7 @@ export default class Post extends Component {
         const postObject = {
             author: 'logged in user',
             title: this.state.title,
-            body: this.state.body
+            body: JSON.stringify(this.state.body)
         }
 
         this.setState({isNew: false})

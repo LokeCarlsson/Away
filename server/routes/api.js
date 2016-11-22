@@ -12,7 +12,7 @@ export default router.get('/', (req, res) => {
     const blog = new Blog({
         author: req.body.author,
         title: req.body.title,
-        body: JSON.stringify(req.body.body)
+        body: req.body.body
     })
 
     blog.save()
