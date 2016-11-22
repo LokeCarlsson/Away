@@ -1,3 +1,5 @@
-const express = require('./config/express.js')
+import express from './config/express'
+import mongo from './config/mongo'
 
 express()
+mongo()

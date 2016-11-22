@@ -1,37 +1,23 @@
-'use strict'
-
-const express = require('express')
-const session = require('express-session')
-const bodyParser = require('body-parser')
+import express from 'express'
+import api from '../routes/api'
+import secret from './secret/session_secret'
 const app = express()
 const PORT = 3001
-const secret = require('./secret/session_secret.js')
 
-module.exports = () => {
-
-    app.use(session({
-        name: secret.NAME,
-        secret: secret.SECRET,
-        saveUninitialized: false,
-        resave: false,
-        httpOnly: true,
-        cookie: {
-            secure: false
-        }
-    }))
-
-    app.use(bodyParser.json())
+export default () => {
 
     app.use((req, res, next) => {
         res.locals.user = req.session.user || false
         next()
     })
 
+    app.use('/', api)
+
     app.use('*', (req, res) => {
         return res.redirect('/')
     })
 
-    app.listen(PORT, function () {
+    app.listen(PORT, () => {
         console.log('Express up. ' + PORT)
     })
 
