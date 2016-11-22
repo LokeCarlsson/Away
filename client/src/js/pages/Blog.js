@@ -12,8 +12,7 @@ export default class Home extends Component {
     }
 
     deleteComponent(key) {
-        const radix = 10
-        const removedComponent = this.state.blogPostArray.filter((component) => key !== parseInt(component.key, radix))
+        const removedComponent = this.state.blogPostArray.filter((component) => key !== component.key)
         this.setState({
             blogPostArray: removedComponent
         })
@@ -33,10 +32,7 @@ export default class Home extends Component {
         })
         .then((posts) => {
             this.setState({
-                blogPostArray: [
-                    ...this.state.blogPostArray,
-                    posts
-                ]
+                blogPostArray: posts
             })
         })
     }
