@@ -3,12 +3,7 @@ import Blog from '../models/blog'
 import cors from 'cors'
 const router = express.Router()
 
-export default router.get('/', (req, res) => {
-    Blog.find({})
-    .then(allPosts => res.send(allPosts))
-    .catch(err => console.log(err))
-})
-.post('/', cors(), (req, res) => {
+export default router.post('/blog/create', cors(), (req, res) => {
     const blog = new Blog({
         author: req.body.author,
         title: req.body.title,
@@ -19,6 +14,5 @@ export default router.get('/', (req, res) => {
     .then(() => {
         console.log('done')
     })
-
 
 })

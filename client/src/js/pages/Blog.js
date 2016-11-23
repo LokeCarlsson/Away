@@ -19,7 +19,7 @@ export default class Home extends Component {
     }
 
     generateExistingPosts() {
-        fetch('http://localhost:3001/', {
+        fetch('http://localhost:3001/api/read', {
             headers: {'Content-Type': 'application/json'}
         })
         .then(blogPosts => blogPosts.json())
