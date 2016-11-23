@@ -14,11 +14,29 @@ export default class Post extends Component {
         }
     }
 
-    savePost(e) {
+    updatePost(e) {
+        this.setState({isNew: true})
+    }
+
+    saveUpdate(postObject) {
+        fetch('http://localhost:3001/blog/update', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postObject)
+        })
+        .then(r => console.log(r))
+
+    }
+
+    saveOrUpdatePost(e) {
         const postObject = {
             author: 'logged in user',
             title: this.state.title,
             body: JSON.stringify(this.state.body)
+        }
+
+        if (this.props.id) {
+            return this.saveUpdate(postObject)
         }
 
         fetch('http://localhost:3001/blog/create', {
@@ -47,18 +65,26 @@ export default class Post extends Component {
         this.setState({showSaveButton: toggle})
     }
 
-    getButton() {
+    getSaveButton() {
         return this.state.isNew
-        ? <button className='save' onClick={this.savePost.bind(this)}>SAVE</button>
+        ? <button className='save' onClick={this.saveOrUpdatePost.bind(this)}>SAVE</button>
         : null
     }
 
+    getUpdateButton() {
+        console.log('tjosan');
+
+        return this.state.isNew
+        ? null
+        : <button className='update' onClick={this.updatePost.bind(this)}>UPDATE</button>
+    }
+
     getBody() {
-        return <Body readOnly={this.state.isNew} body={this.state.body} sendBodyToPost={this.setBody.bind(this)} />
+        return <Body readOnly={this.state.isNew} body={this.state.body} sendBodyToPost={this.setBody.bind(this)} defaultValue={this.props.info}/>
     }
 
     getTitle() {
-        return <Title sendTitleToPost={this.setTitle.bind(this)} title={this.state.title} isNew={this.props.isNew} />
+        return <Title sendTitleToPost={this.setTitle.bind(this)} title={this.state.title} isNew={this.state.isNew} />
     }
 
     deleteThisPost(e) {
@@ -80,7 +106,8 @@ export default class Post extends Component {
                 {this.getDeleteButton()}
                 {this.getTitle()}
                 {this.getBody()}
-                {this.getButton()}
+                {this.getSaveButton()}
+                {this.getUpdateButton()}
             </div>
         )
     }

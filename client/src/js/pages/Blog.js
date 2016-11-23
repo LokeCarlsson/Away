@@ -18,6 +18,13 @@ export default class Home extends Component {
         })
     }
 
+    updateComponent(key) {
+        const removedComponent = this.state.blogPostArray.filter((component) => key !== component.key)
+        this.setState({
+            blogPostArray: removedComponent
+        })
+    }
+
     generateExistingPosts() {
         fetch('http://localhost:3001/blog/read', {
             headers: {'Content-Type': 'application/json'}
@@ -43,6 +50,7 @@ export default class Home extends Component {
                      body={postObject.body}
                      key={keyValue}
                      delete={this.deleteComponent.bind(this)}
+                     update={this.newPost.bind(this)}
                      id={keyValue}
                 />
     }
@@ -70,7 +78,8 @@ export default class Home extends Component {
                 isNew={this.state.newPost}
                 highestKey={this.state.blogPostArray.length}
                 key={this.state.blogPostArray.length}
-                store={this.addNewPostToArray.bind(this)}/>
+                store={this.addNewPostToArray.bind(this)}
+            />
             : null
     }
 

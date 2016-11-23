@@ -6,7 +6,7 @@ export default class Title extends Component {
     }
 
     getTitle() {
-        return this.props.isNew ? <input onChange={this.updateTitle.bind(this)} type='text'/> : <h1>{this.props.title}</h1>
+        return this.props.isNew ? <input onChange={this.updateTitle.bind(this)} defaultValue={this.props.title} type='text'/> : <h1>{this.props.title}</h1>
     }
 
     render() {
