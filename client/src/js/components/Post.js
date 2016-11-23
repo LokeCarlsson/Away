@@ -24,7 +24,7 @@ export default class Post extends Component {
         this.setState({isNew: false})
         this.props.store(postObject)
 
-        fetch('http://localhost:3001/', {
+        fetch('http://localhost:3001/blog/create', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(postObject)
