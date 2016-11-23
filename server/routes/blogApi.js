@@ -21,7 +21,8 @@ router.get('/read', (req, res) => {
         .catch(err => console.log(err))
 })
 
-router.post('/update', cors(), (req, res) => {
+router.put('/update/:id', cors(), (req, res) => {
+    console.log(req);
     res.send('update')
 })
 
