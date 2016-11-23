@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import api from '../routes/api'
+import blogApi from '../routes/blogApi.js'
 import cors from 'cors'
 import secret from './secret/session_secret'
 const app = express()
@@ -11,7 +11,7 @@ export default () => {
 
     app.use(bodyParser.json())
 
-    app.use('/', api)
+    app.use('/blog', blogApi)
 
     app.use('*', (req, res) => {
         return res.send('Not valid')
@@ -20,5 +20,4 @@ export default () => {
     app.listen(PORT, () => {
         console.log('Express up. ' + PORT)
     })
-
 }
