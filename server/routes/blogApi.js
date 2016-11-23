@@ -11,9 +11,8 @@ router.post('/create', cors(), (req, res) => {
     })
 
     blog.save()
-    .then(() => {
-        console.log('done')
-    })
+        .then((postCreated) => res.send(postCreated._id))
+        .catch((err) => console.log(err))
 })
 
 router.get('/read', (req, res) => {
@@ -26,8 +25,12 @@ router.post('/update', cors(), (req, res) => {
     res.send('update')
 })
 
-router.post('/delete', cors(), (req, res) => {
-    res.send('delete')
+router.delete('/delete/:id', cors(), (req, res) => {
+    Blog.findByIdAndRemove(req.params.id)
+        .then(allPosts => console.log('deleted'))
+        .catch(err => console.log(err))
+
+    res.send(true)
 })
 
 export default router

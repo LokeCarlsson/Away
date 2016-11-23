@@ -21,14 +21,17 @@ export default class Post extends Component {
             body: JSON.stringify(this.state.body)
         }
 
-        this.setState({isNew: false})
-        this.props.store(postObject)
-
         fetch('http://localhost:3001/blog/create', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(postObject)
+        }).then((mongoId) => mongoId.json())
+        .then((idValue) => {
+            postObject['_id'] = idValue
+            this.setState({isNew: false})
+            this.props.store(postObject)
         })
+
     }
 
     setTitle(newTitle) {
@@ -59,7 +62,12 @@ export default class Post extends Component {
     }
 
     deleteThisPost(e) {
-        this.props.delete(this.props.id)
+        fetch('http://localhost:3001/blog/delete/' + this.props.id, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            this.props.delete(this.props.id)
+        })
     }
 
     getDeleteButton() {

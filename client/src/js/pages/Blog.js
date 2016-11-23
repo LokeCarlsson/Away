@@ -38,9 +38,7 @@ export default class Home extends Component {
     }
 
     createNewPost(postObject) {
-        const keyValue = this.state.blogPostArray.length === 0 ?
-            postObject._id : this.state.blogPostArray.length
-
+        const keyValue = postObject._id
         return <Post title={postObject.title}
                      body={postObject.body}
                      key={keyValue}
