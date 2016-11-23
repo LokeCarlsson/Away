@@ -71,7 +71,7 @@ export default class Post extends Component {
     }
 
     getDeleteButton() {
-        return <div className='delete' onClick={this.deleteThisPost.bind(this)}></div>
+        return this.props.isNew ? null : <div className='delete' onClick={this.deleteThisPost.bind(this)}></div>
     }
 
     render() {
