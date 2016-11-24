@@ -23,8 +23,10 @@ router.get('/read', (req, res) => {
 })
 
 router.put('/update/:id', cors(), (req, res) => {
+    const date = JSON.stringify(req.body.date)
+
     Blog.findOneAndUpdate(req.params.id, req.body)
-        .then(l => res.send(l))
+        .then(l => res.send(date))
 })
 
 router.delete('/delete/:id', cors(), (req, res) => {

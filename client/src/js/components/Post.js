@@ -28,7 +28,7 @@ export default class Post extends Component {
         })
         .then((res) => res.json())
         .then((newDate) => {
-            this.setState({date: newDate.date})
+            this.setState({date: newDate})
             return this.setState({isNew: false})
         })
     }
