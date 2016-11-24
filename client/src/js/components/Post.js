@@ -24,7 +24,7 @@ export default class Post extends Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(postObject)
         })
-        .then(r => console.log(r))
+        .then(r => this.setState({isNew: false}))
 
     }
 
