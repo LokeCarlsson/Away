@@ -23,7 +23,7 @@ export default class Post extends Component {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(postObject),
-            date: JSON.stringify(Date.now())
+            date: Date.now()
         })
         .then(() => {
             return this.setState({isNew: false})
@@ -35,21 +35,21 @@ export default class Post extends Component {
             author: 'logged in user',
             title: this.state.title,
             body: JSON.stringify(this.state.body),
-            date: JSON.stringify(Date.now())
+            date: Date.now()
         }
     }
 
     saveOrUpdatePost(e) {
         const postObject = this.generatePostObject()
-
+        console.log(postObject)
         if (this.props.id) {
             return this.saveUpdate(postObject)
-        } else {
-            return fetch('http://localhost:3001/blog/create', {
+        }
+
+        fetch('http://localhost:3001/blog/create', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(postObject),
-                date: JSON.stringify(Date.now())
+                body: JSON.stringify(postObject)
             })
             .then((mongoId) => mongoId.json())
             .then((idValue) => {
@@ -57,10 +57,6 @@ export default class Post extends Component {
                 this.setState({isNew: false})
                 this.props.store(postObject)
             })
-        }
-
-
-
     }
 
     setTitle(newTitle) {

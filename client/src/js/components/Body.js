@@ -10,6 +10,10 @@ export default class Draft extends Component {
         }
     }
 
+    componentWillDismount() {
+        this.convertToJson(this.state.editorState)
+    }
+
     createExistingOrEmptyBody() {
         if (this.props.body !== "") {
             const content = convertFromRaw(JSON.parse(this.props.body))
