@@ -10,7 +10,7 @@ export default class Draft extends Component {
         }
     }
 
-    componentWillDismount() {
+    componentDidMount() {
         this.convertToJson(this.state.editorState)
     }
 

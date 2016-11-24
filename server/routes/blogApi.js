@@ -23,9 +23,8 @@ router.get('/read', (req, res) => {
 })
 
 router.put('/update/:id', cors(), (req, res) => {
-    console.log(req.body)
     Blog.findOneAndUpdate(req.params.id, req.body)
-        .then(l => res.send('updated'))
+        .then(l => res.send(l))
 })
 
 router.delete('/delete/:id', cors(), (req, res) => {

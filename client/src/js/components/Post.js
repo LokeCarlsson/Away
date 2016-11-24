@@ -9,6 +9,7 @@ export default class Post extends Component {
         this.state = {
             title: this.props.title || '',
             body: this.props.body || '',
+            date: this.props.date,
             showSaveButton: false,
             isNew: this.props.isNew
         }
@@ -25,7 +26,9 @@ export default class Post extends Component {
             body: JSON.stringify(postObject),
             date: Date.now()
         })
-        .then(() => {
+        .then((res) => res.json())
+        .then((newDate) => {
+            this.setState({date: newDate.date})
             return this.setState({isNew: false})
         })
     }
@@ -41,7 +44,7 @@ export default class Post extends Component {
 
     saveOrUpdatePost(e) {
         const postObject = this.generatePostObject()
-        console.log(postObject)
+
         if (this.props.id) {
             return this.saveUpdate(postObject)
         }
@@ -111,7 +114,7 @@ export default class Post extends Component {
                 {this.getDeleteButton()}
                 {this.getTitle()}
                 {this.getBody()}
-                {this.props.date}
+                {this.state.date}
                 {this.getSaveButton()}
                 {this.getUpdateButton()}
             </div>
