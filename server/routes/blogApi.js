@@ -23,14 +23,13 @@ router.get('/read', (req, res) => {
 
 router.put('/update/:id', cors(), (req, res) => {
     Blog.findOneAndUpdate(req.params.id, req.body)
-    .then(l => res.send('updated'))
+        .then(l => res.send('updated'))
 })
 
 router.delete('/delete/:id', cors(), (req, res) => {
     Blog.findByIdAndRemove(req.params.id)
         .then(allPosts => console.log('deleted'))
         .catch(err => console.log(err))
-
     res.send(true)
 })
 

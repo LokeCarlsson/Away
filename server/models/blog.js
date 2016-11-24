@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const blogSchema = mongoose.Schema({
     author: {
@@ -18,6 +18,6 @@ const blogSchema = mongoose.Schema({
         type: String,
         default: Date.now
     }
-});
+})
 
-export default mongoose.model("Blog", blogSchema);
+export default mongoose.model("Blog", blogSchema)

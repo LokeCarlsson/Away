@@ -31,10 +31,17 @@ export default class Home extends Component {
         })
         .then(blogPosts => blogPosts.json())
         .then(blogObjects => {
+            const orderByDate = (b, a) => {
+                return a.props.date - b.props.date
+            }
+
             const blogArray = []
             for (let i = 0; i < blogObjects.length; i++) {
                 blogArray.push(this.createNewPost(blogObjects[i]))
             }
+
+            blogArray.sort(orderByDate)
+
             return blogArray
         })
         .then((posts) => {
@@ -52,6 +59,7 @@ export default class Home extends Component {
                      delete={this.deleteComponent.bind(this)}
                      update={this.newPost.bind(this)}
                      id={keyValue}
+                     date={postObject.date}
                 />
     }
 
@@ -60,8 +68,8 @@ export default class Home extends Component {
 
         this.setState({
             blogPostArray: [
-                ...this.state.blogPostArray,
-                post
+                post,
+                ...this.state.blogPostArray
             ]
         })
         this.createNew()

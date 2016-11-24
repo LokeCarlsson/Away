@@ -24,16 +24,20 @@ export default class Post extends Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(postObject)
         })
-        .then(r => this.setState({isNew: false}))
+        .then(() => this.setState({isNew: false}))
+    }
 
+    generatePostObject() {
+        return {
+            author: 'logged in user',
+            title: this.state.title,
+            body: JSON.stringify(this.state.body),
+            date: JSON.stringify(Date.now())
+        }
     }
 
     saveOrUpdatePost(e) {
-        const postObject = {
-            author: 'logged in user',
-            title: this.state.title,
-            body: JSON.stringify(this.state.body)
-        }
+        const postObject = this.generatePostObject()
 
         if (this.props.id) {
             return this.saveUpdate(postObject)
@@ -72,8 +76,6 @@ export default class Post extends Component {
     }
 
     getUpdateButton() {
-        console.log('tjosan');
-
         return this.state.isNew
         ? null
         : <button className='update' onClick={this.updatePost.bind(this)}>UPDATE</button>
