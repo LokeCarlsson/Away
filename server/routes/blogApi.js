@@ -7,7 +7,8 @@ router.post('/create', cors(), (req, res) => {
     const blog = new Blog({
         author: req.body.author,
         title: req.body.title,
-        body: req.body.body
+        body: req.body.body,
+        date: req.body.date
     })
 
     blog.save()

@@ -46,7 +46,8 @@ export default class Post extends Component {
         fetch('http://localhost:3001/blog/create', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(postObject)
+            body: JSON.stringify(postObject),
+            date: JSON.stringify(Date.now())
         }).then((mongoId) => mongoId.json())
         .then((idValue) => {
             postObject['_id'] = idValue

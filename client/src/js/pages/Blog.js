@@ -12,13 +12,7 @@ export default class Home extends Component {
     }
 
     deleteComponent(key) {
-        const removedComponent = this.state.blogPostArray.filter((component) => key !== component.key)
-        this.setState({
-            blogPostArray: removedComponent
-        })
-    }
-
-    updateComponent(key) {
+        console.log(key);
         const removedComponent = this.state.blogPostArray.filter((component) => key !== component.key)
         this.setState({
             blogPostArray: removedComponent
@@ -57,7 +51,6 @@ export default class Home extends Component {
                      body={postObject.body}
                      key={keyValue}
                      delete={this.deleteComponent.bind(this)}
-                     update={this.newPost.bind(this)}
                      id={keyValue}
                      date={postObject.date}
                 />
