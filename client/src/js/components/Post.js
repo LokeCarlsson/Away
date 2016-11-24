@@ -22,9 +22,12 @@ export default class Post extends Component {
         fetch('http://localhost:3001/blog/update/' + this.props.id, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(postObject)
+            body: JSON.stringify(postObject),
+            date: JSON.stringify(Date.now())
         })
-        .then(() => this.setState({isNew: false}))
+        .then(() => {
+            return this.setState({isNew: false})
+        })
     }
 
     generatePostObject() {
@@ -41,19 +44,22 @@ export default class Post extends Component {
 
         if (this.props.id) {
             return this.saveUpdate(postObject)
+        } else {
+            return fetch('http://localhost:3001/blog/create', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(postObject),
+                date: JSON.stringify(Date.now())
+            })
+            .then((mongoId) => mongoId.json())
+            .then((idValue) => {
+                postObject['_id'] = idValue
+                this.setState({isNew: false})
+                this.props.store(postObject)
+            })
         }
 
-        fetch('http://localhost:3001/blog/create', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(postObject),
-            date: JSON.stringify(Date.now())
-        }).then((mongoId) => mongoId.json())
-        .then((idValue) => {
-            postObject['_id'] = idValue
-            this.setState({isNew: false})
-            this.props.store(postObject)
-        })
+
 
     }
 
@@ -109,6 +115,7 @@ export default class Post extends Component {
                 {this.getDeleteButton()}
                 {this.getTitle()}
                 {this.getBody()}
+                {this.props.date}
                 {this.getSaveButton()}
                 {this.getUpdateButton()}
             </div>

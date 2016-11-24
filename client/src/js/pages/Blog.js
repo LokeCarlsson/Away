@@ -12,7 +12,6 @@ export default class Home extends Component {
     }
 
     deleteComponent(key) {
-        console.log(key);
         const removedComponent = this.state.blogPostArray.filter((component) => key !== component.key)
         this.setState({
             blogPostArray: removedComponent
