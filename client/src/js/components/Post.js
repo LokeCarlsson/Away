@@ -9,6 +9,8 @@ export default class Post extends Component {
         this.state = {
             title: this.props.title || '',
             body: this.props.body || '',
+            oldTitle: '',
+            oldBody: '',
             date: this.props.date,
             showSaveButton: false,
             isNew: this.props.isNew
@@ -16,7 +18,13 @@ export default class Post extends Component {
     }
 
     updatePost(e) {
+        this.setState({oldTitle: this.state.title, oldBody: this.state.body})
         this.setState({isNew: true})
+    }
+
+    disbandUpdate() {
+        this.setState({title: this.state.oldTitle, body: this.state.oldBody})
+        this.setState({isNew: false})
     }
 
     saveUpdate(postObject) {
@@ -81,9 +89,13 @@ export default class Post extends Component {
         : null
     }
 
+    x() {
+        return this.props.id ? <button className='update' onClick={this.disbandUpdate.bind(this)}>REGRET LIFE</button> : null
+    }
+
     getUpdateButton() {
         return this.state.isNew
-        ? null
+        ? this.x()
         : <button className='update' onClick={this.updatePost.bind(this)}>UPDATE</button>
     }
 
